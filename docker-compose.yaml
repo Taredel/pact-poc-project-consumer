@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres
     healthcheck:
-      test: psql postgres --command "select 1" -U postgres
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
     ports:
       - "5432:5432"
     environment:
@@ -25,3 +25,11 @@ services:
       PACT_BROKER_DATABASE_PASSWORD: password
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
+      PACT_BROKER_ALLOW_DANGEROUS_CONTRACT_MODIFICATION: "true"
+      PACT_BROKER_PASSWORD_DIGEST: "false"
+      PACT_BROKER_ORDER_DEPLOYMENTS_BY_CREATED_AT: "true"
+  pact_cli:
+    image: ruby:2.7-alpine
+    depends_on:
+      - broker_app
+    command: sh -c "gem install pact_broker-client && sleep infinity
