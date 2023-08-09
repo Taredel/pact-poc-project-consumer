@@ -1,0 +1,27 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Build and Test
+        run: |
+          mvn verify
+
+      - name: Publish Pact Contracts
+        run: |
+          mvn pact:publish
