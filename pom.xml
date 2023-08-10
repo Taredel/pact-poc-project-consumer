@@ -65,7 +65,7 @@
                 <artifactId>maven</artifactId>
                 <version>4.1.17</version>
                 <configuration>
-                    <pactBrokerUrl>https://d503-2a0b-6204-454c-1600-18ba-fa3f-4401-e480.ngrok-free.app</pactBrokerUrl>
+                    <pactBrokerUrl>https://ac2f-2a0b-6204-454c-1600-c8c-fd1f-9783-7c44.ngrok-free.app</pactBrokerUrl>
                     <pactBrokerUsername>pact_username</pactBrokerUsername>
                     <pactBrokerPassword>pact_password</pactBrokerPassword>
                 </configuration>
