@@ -35,7 +35,6 @@ jobs:
 
   can-i-deploy:
     runs-on: ubuntu-latest
-    publish: test
     steps:
       - uses: actions/checkout@v2
       - run: docker pull pactfoundation/pact-cli:latest
