@@ -40,4 +40,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker pull pactfoundation/pact-cli:latest
       - name: Can I deploy?
-        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://ac2f-2a0b-6204-454c-1600-c8c-fd1f-9783-7c44.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --latest --broker-base-url https://ac2f-2a0b-6204-454c-1600-c8c-fd1f-9783-7c44.ngrok-free.app --broker-username pact_username --broker-password pact_password
+        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://9450-212-58-102-48.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --latest --broker-base-url https://ac2f-2a0b-6204-454c-1600-c8c-fd1f-9783-7c44.ngrok-free.app --broker-username pact_username --broker-password pact_password

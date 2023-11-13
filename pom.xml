@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.pactpoc</groupId>
     <artifactId>consumer-app</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.1</version>
     <name>consumer-app</name>
     <description>Consumer demo for Pact POC</description>
     <properties>
@@ -65,7 +65,7 @@
                 <artifactId>maven</artifactId>
                 <version>4.1.17</version>
                 <configuration>
-                    <pactBrokerUrl>https://ac2f-2a0b-6204-454c-1600-c8c-fd1f-9783-7c44.ngrok-free.app</pactBrokerUrl>
+                    <pactBrokerUrl>https://9450-212-58-102-48.ngrok-free.app/</pactBrokerUrl>
                     <pactBrokerUsername>pact_username</pactBrokerUsername>
                     <pactBrokerPassword>pact_password</pactBrokerPassword>
                 </configuration>
