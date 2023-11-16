@@ -11,6 +11,7 @@ public class ProviderServiceConfig {
 
     @Bean
     RestTemplate productRestTemplate(@Value("${provider.port:8080}") int port) {
+        System.out.println("sout");
         return new RestTemplateBuilder().rootUri(String.format("http://localhost:%d", port)).build();
     }
 }
