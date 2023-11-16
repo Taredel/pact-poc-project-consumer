@@ -39,5 +39,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker pull pactfoundation/pact-cli:latest
+      - name: Set Version
+          id: set_version
+          run: |
+            # Extract the version from the branch name, assuming a naming convention like 'release/v1.0.0'
+            export BRANCH_NAME=${GITHUB_REF#refs/heads/}
+            export VERSION=$(echo $BRANCH_NAME | cut -d'/' -f 2)
+
+            echo "Version extracted from branch: $VERSION"
+
+            # Set the version as an output variable
+            echo "Version=$VERSION" >> $GITHUB_ENV
       - name: Can I deploy?
-        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://ce1b-2a0b-6204-454c-1600-7153-bdab-1e56-f89c.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --latest --broker-base-url https://ce1b-2a0b-6204-454c-1600-7153-bdab-1e56-f89c.ngrok-free.app --broker-username pact_username --broker-password pact_password
+        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://ce1b-2a0b-6204-454c-1600-7153-bdab-1e56-f89c.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --version ${{ env.VERSION }} --broker-base-url https://ce1b-2a0b-6204-454c-1600-7153-bdab-1e56-f89c.ngrok-free.app --broker-username pact_username --broker-password pact_password
