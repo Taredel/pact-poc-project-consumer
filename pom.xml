@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.pactpoc</groupId>
     <artifactId>consumer-app</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <name>consumer-app</name>
     <description>Consumer demo for Pact POC</description>
     <properties>
