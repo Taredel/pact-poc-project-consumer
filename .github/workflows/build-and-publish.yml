@@ -39,6 +39,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker pull pactfoundation/pact-cli:latest
+      - name: Install xmlstarlet
+        run: sudo apt-get install -y xmlstarlet
       - name: Set Version
         run: |
           # Extract the version from the branch name, assuming a naming convention like 'release/v1.0.0'
