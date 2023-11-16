@@ -31,7 +31,7 @@ jobs:
           mvn pact:publish
 #      - name: Trigger Jenkins Build
 #          run: |
-#            curl -X POST "http://Taredel:C%21x6iffRT2%41localhost:9000/job/deployment_job_provider/build" --data-urlencode "delay=0sec"
+#            curl -X POST "http://Taredel:password41localhost:9000/job/deployment_job_provider/build" --data-urlencode "delay=0sec"
 
   can-i-deploy:
     runs-on: ubuntu-latest
@@ -40,4 +40,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker pull pactfoundation/pact-cli:latest
       - name: Can I deploy?
-        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://9450-212-58-102-48.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --latest --broker-base-url https://9450-212-58-102-48.ngrok-free.app --broker-username pact_username --broker-password pact_password
+        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://ce1b-2a0b-6204-454c-1600-7153-bdab-1e56-f89c.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --latest --broker-base-url https://ce1b-2a0b-6204-454c-1600-7153-bdab-1e56-f89c.ngrok-free.app --broker-username pact_username --broker-password pact_password
