@@ -44,7 +44,7 @@ jobs:
       - name: Set Version
         run: |
           # Extract the version from the branch name, assuming a naming convention like 'release/v1.0.0'
-          export VERSION=$(grep -oP '<version>\K[^<]+' pom.xml | grep -m 1 -v '\${' | head -n 1)
+          export VERSION=$(awk -F '[<>]' '/<version>/ {print $3}' pom.xml | grep -m 1 -v '\${' | head -n 1)
 
           # If no version is extracted, set a default version (e.g., "default")
           if [ -z "$VERSION" ]; then
