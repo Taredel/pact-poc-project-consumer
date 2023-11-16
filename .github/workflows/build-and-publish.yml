@@ -44,7 +44,7 @@ jobs:
       - name: Set Version
         run: |
           # Extract the version from the branch name, assuming a naming convention like 'release/v1.0.0'
-          export VERSION=$(xmlstarlet sel -N "http://maven.apache.org/POM/4.0.0" -t -v "/project/version" pom.xml)
+          export VERSION=$(grep -oP '<version>\K[^<]+' pom.xml | head -n 1)
 
           # If no version is extracted, set a default version (e.g., "default")
           if [ -z "$VERSION" ]; then
