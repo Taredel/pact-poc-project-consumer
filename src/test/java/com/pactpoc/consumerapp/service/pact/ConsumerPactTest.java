@@ -35,7 +35,7 @@ public class ConsumerPactTest {
         DslPart body = new PactDslJsonBody()
                 .integerType("simpleInteger", 10)
                 .object("warningMessage", new PactDslJsonBody()
-                        .stringValue("message", "This is a generic message with random number"))
+                .stringValue("message", "This is a generic message"))
                 .asBody();
         return builder.usingLegacyDsl().given("Upon /getSomething")
                 .uponReceiving("send 10")
@@ -51,7 +51,7 @@ public class ConsumerPactTest {
     @Test
     @PactTestFor(pactMethod = "getSomething")
     void getSomethingTest(MockServer mockServer) {
-        SimpleDto expected = new SimpleDto(10, new MessageDto("This is a generic message with random number"));
+        SimpleDto expected = new SimpleDto(10, new MessageDto("This is a generic message"));
         providerService.setUrl(mockServer.getUrl());
         SimpleDto actual = providerService.callProvider(10);
 
@@ -64,7 +64,7 @@ public class ConsumerPactTest {
         DslPart body = new PactDslJsonBody()
                 .integerType("simpleInteger", 25)
                 .object("warningMessage", new PactDslJsonBody()
-                        .stringValue("message", "This is a generic message with random number"))
+                        .stringValue("message", "This is a generic message"))
                 .asBody();
         return builder.usingLegacyDsl().given("Upon /getSomething else")
                 .uponReceiving("send 25")
@@ -81,7 +81,7 @@ public class ConsumerPactTest {
     @Test
     @PactTestFor(pactMethod = "getSomethingElse")
     void getSomethingElseTest(MockServer mockServer) {
-        SimpleDto expected = new SimpleDto(25, new MessageDto("This is a generic message with random number"));
+        SimpleDto expected = new SimpleDto(25, new MessageDto("This is a generic message"));
         providerService.setUrl(mockServer.getUrl());
         SimpleDto actual = providerService.callProvider(25);
 
