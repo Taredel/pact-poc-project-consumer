@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   postgres:
     image: postgres
@@ -21,7 +19,7 @@ services:
       PACT_BROKER_BASIC_AUTH_USERNAME: pact_username
       PACT_BROKER_BASIC_AUTH_PASSWORD: pact_password
       PACT_BROKER_DATABASE_USERNAME: postgres
-        PACT_BROKER_DATABASE_PASSWORD: password
+      PACT_BROKER_DATABASE_PASSWORD: password
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
       PACT_BROKER_ALLOW_DANGEROUS_CONTRACT_MODIFICATION: "true"
@@ -34,6 +32,4 @@ services:
 
   pact_cli:
     image: ruby:2.7-alpine
-    depends_on:
-      - broker_app
     command: sh -c "gem install pact_broker-client && sleep infinity"
