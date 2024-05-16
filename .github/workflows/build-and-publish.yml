@@ -56,4 +56,4 @@ jobs:
           # Set the version as an output variable
           echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Can I deploy?
-        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://92b5-2a02-a319-c1e2-7200-00-25b.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --version ${{ env.VERSION }} --broker-base-url https://92b5-2a02-a319-c1e2-7200-00-25b.ngrok-free.app --broker-username pact_username --broker-password pact_password
+        run: docker run --rm -v ${PWD}:${PWD} -e PACT_BROKER_BASE_URL=https://e043-2a02-a319-c1e2-7200-00-25b.ngrok-free.app pactfoundation/pact-cli pact-broker can-i-deploy --pacticipant ConsumerService --version ${{ env.VERSION }} --broker-base-url https://e043-2a02-a319-c1e2-7200-00-25b.ngrok-free.app --broker-username pact_username --broker-password pact_password
