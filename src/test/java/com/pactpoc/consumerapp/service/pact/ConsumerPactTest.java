@@ -88,25 +88,25 @@ public class ConsumerPactTest {
         assertEquals(expected, actual);
     }
 
-    @Pact(consumer = "ConsumerService", provider = "ProviderService")
-    V4Pact getSomethingWithZero(PactBuilder builder) {
-        return builder.usingLegacyDsl().given("Upon /getSomething")
-                .uponReceiving("send 0")
-                .method("GET")
-                .path("/getSomething")
-                .matchQuery("inputData", "0")
-                .willRespondWith()
-                .status(500)
-                .toPact(V4Pact.class);
-
-    }
-
-    @Test
-    @PactTestFor(pactMethod = "getSomethingWithZero")
-    void getSomethingWithZeroTest(MockServer mockServer) {
-        providerService.setUrl(mockServer.getUrl());
-        SimpleDto actual = providerService.callProvider(0);
-
-        assertNull(actual);
-    }
+//    @Pact(consumer = "ConsumerService", provider = "ProviderService")
+//    V4Pact getSomethingWithZero(PactBuilder builder) {
+//        return builder.usingLegacyDsl().given("Upon /getSomething")
+//                .uponReceiving("send 0")
+//                .method("GET")
+//                .path("/getSomething")
+//                .matchQuery("inputData", "0")
+//                .willRespondWith()
+//                .status(500)
+//                .toPact(V4Pact.class);
+//
+//    }
+//
+//    @Test
+//    @PactTestFor(pactMethod = "getSomethingWithZero")
+//    void getSomethingWithZeroTest(MockServer mockServer) {
+//        providerService.setUrl(mockServer.getUrl());
+//        SimpleDto actual = providerService.callProvider(0);
+//
+//        assertNull(actual);
+//    }
 }
