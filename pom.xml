@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -65,7 +65,7 @@
                 <artifactId>maven</artifactId>
                 <version>4.1.17</version>
                 <configuration>
-                    <pactBrokerUrl>https://e043-2a02-a319-c1e2-7200-00-25b.ngrok-free.app</pactBrokerUrl>
+                    <pactBrokerUrl>https://qiana-tonal-leftwardly.ngrok-free.dev/</pactBrokerUrl>
                     <pactBrokerUsername>pact_username</pactBrokerUsername>
                     <pactBrokerPassword>pact_password</pactBrokerPassword>
                 </configuration>
