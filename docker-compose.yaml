@@ -1,20 +1,28 @@
+# Pact Broker stack for Podman (`podman compose`) and Docker (`docker compose`).
+# The fixed project name makes both repos start the same broker.
+name: pact-broker
+
 services:
   postgres:
-    image: postgres
+    image: docker.io/library/postgres:16
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "postgres" ]
-    ports:
-      - "5432:5432"
+      interval: 5s
+      retries: 10
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
+    volumes:
+      - pact-broker-db:/var/lib/postgresql/data
 
   broker_app:
-    image: pactfoundation/pact-broker
-    links:
-      - postgres
-      - pact_cli
+    image: docker.io/pactfoundation/pact-broker:3.0.0-pactbroker2.121.2
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "9292:9292"
     environment:
       PACT_BROKER_BASIC_AUTH_USERNAME: pact_username
       PACT_BROKER_BASIC_AUTH_PASSWORD: pact_password
@@ -23,13 +31,20 @@ services:
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
       PACT_BROKER_ALLOW_DANGEROUS_CONTRACT_MODIFICATION: "true"
-      PACT_BROKER_PASSWORD_DIGEST: "false"
       PACT_BROKER_ORDER_DEPLOYMENTS_BY_CREATED_AT: "true"
-      PACT_BROKER_WEBHOOK_EXEC_COMMAND: /scripts/webhook.ps1
-    # Configure webhook
-    volumes:
-      - ./scripts:/scripts
 
-  pact_cli:
-    image: ruby:2.7-alpine
-    command: sh -c "gem install pact_broker-client && sleep infinity"
+  # Public tunnel to the broker; started only with `--profile public`.
+  # NGROK_AUTHTOKEN and NGROK_DOMAIN come from .env (see .env.example).
+  ngrok:
+    image: docker.io/ngrok/ngrok:3.39.13-alpine
+    profiles: [ "public" ]
+    depends_on:
+      - broker_app
+    command: [ "http", "broker_app:9292", "--url=${NGROK_DOMAIN}" ]
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040"
+
+volumes:
+  pact-broker-db:

@@ -15,6 +15,9 @@
     <description>Consumer demo for Pact POC</description>
     <properties>
         <java.version>11</java.version>
+        <lombok.version>1.18.48</lombok.version>
+        <!-- Override with -Dpact.broker.url=https://<ngrok domain> to use the public broker -->
+        <pact.broker.url>http://localhost:9292</pact.broker.url>
     </properties>
     <dependencies>
         <dependency>
@@ -37,7 +40,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.16</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -61,11 +64,25 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!-- JDK 23+ no longer discovers annotation processors on the classpath -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>maven</artifactId>
                 <version>4.1.17</version>
                 <configuration>
-                    <pactBrokerUrl>https://qiana-tonal-leftwardly.ngrok-free.dev/</pactBrokerUrl>
+                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>
                     <pactBrokerUsername>pact_username</pactBrokerUsername>
                     <pactBrokerPassword>pact_password</pactBrokerPassword>
                 </configuration>
