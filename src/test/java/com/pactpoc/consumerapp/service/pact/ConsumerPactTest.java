@@ -90,13 +90,19 @@ public class ConsumerPactTest {
 
     @Pact(consumer = "ConsumerService", provider = "ProviderService")
     V4Pact getSomethingWithZero(PactBuilder builder) {
+        DslPart body = new PactDslJsonBody()
+                .integerType("simpleInteger", 0)
+                .object("warningMessage", new PactDslJsonBody()
+                        .stringValue("message", "This is a message"))
+                .asBody();
         return builder.usingLegacyDsl().given("Upon /getSomething")
                 .uponReceiving("send 0")
                 .method("GET")
                 .path("/getSomething")
                 .matchQuery("inputData", "0")
                 .willRespondWith()
-                .status(500)
+                .status(200)
+                .body(body)
                 .toPact(V4Pact.class);
 
     }
@@ -104,9 +110,10 @@ public class ConsumerPactTest {
     @Test
     @PactTestFor(pactMethod = "getSomethingWithZero")
     void getSomethingWithZeroTest(MockServer mockServer) {
+        SimpleDto expected = new SimpleDto(0, new MessageDto("This is a message"));
         providerService.setUrl(mockServer.getUrl());
         SimpleDto actual = providerService.callProvider(0);
 
-        assertNull(actual);
+        assertEquals(expected, actual);
     }
 }
