@@ -110,9 +110,10 @@ public class ConsumerPactTest {
     @Test
     @PactTestFor(pactMethod = "getSomethingWithZero")
     void getSomethingWithZeroTest(MockServer mockServer) {
+        SimpleDto expected = new SimpleDto(0, new MessageDto("This is a message"));
         providerService.setUrl(mockServer.getUrl());
         SimpleDto actual = providerService.callProvider(0);
 
-        assertNull(actual);
+        assertEquals(expected, actual);
     }
 }
