@@ -25,7 +25,7 @@ public class ProviderService {
     private RestTemplate restTemplate;
 
     public SimpleDto callProvider(int queryParameter) {
-        //
+        // new comment
         String urlTemplate = UriComponentsBuilder.fromHttpUrl(url)
                 .path("/getSomething")
                 .queryParam("inputData", queryParameter)
